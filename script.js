@@ -11,19 +11,25 @@ let integer = '';
 let scndInteger = '';
 let currentDisplay = '';
 let operatorClicked = false;
+//create variable for the number after calculated using the functions
+let answer = '';
 
 //functions for each operator
 function add (a, b){
-    return a + b;
+    answer = a + b;
+    display.textContent = answer;
 }
 function subtract (a, b){
-    return a - b;
+    answer = a - b;
+    display.textContent = answer;
 }
 function divide (a, b){
-    return a / b;
+    answer = a / b;
+    display.textContent = answer;
 }
 function multiply (a, b){
-    return a * b;
+    answer = a * b;
+    display.textContent = answer;
 }
 
 function calculator(){
@@ -46,9 +52,16 @@ function calculator(){
     allOperators.forEach(function(operator){
         operator.addEventListener("click", function(){
             if (operator.textContent == '='){
-                console.log(calculate(integer, currentDisplay, scndInteger));
+                calculate(integer, currentDisplay, scndInteger);
+                //after it is done calculating, the first variable integer will contain the answer
+                //of the calculation and the second integer variable will be set to 0 for future
+                //operations
+                operatorClicked = false;
+                integer = answer;
+                scndInteger = 0;
             }
             else{
+                //show the operator clicked and turn it to true so it can be added to the second integer
                 currentDisplay = operator.textContent
                 display.textContent = currentDisplay;
                 operatorClicked = true;
@@ -56,13 +69,15 @@ function calculator(){
         })
     })
 }
+
+//functions for the calculation
 function calculate(a, operator, b){
     switch (operator){
         case '+':
             return add(a, b);
         case '-':
             return subtract(a, b);
-        case '/':
+        case '÷':
             return divide(a, b);
         case '*':
             return multiply(a, b);
