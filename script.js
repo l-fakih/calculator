@@ -5,7 +5,10 @@ const allNumbers = document.querySelectorAll(".numbers");
 //display the numbers on the html
 let display = document.querySelector(".display");
 display.textContent = 0; // the default set to 0
-
+//AC
+const clearAll = document.querySelector("#clear-all");
+//C
+const clear = document.querySelector("#clear");
 //create variable to save the numbers
 let integer = '';
 let scndInteger = '';
@@ -58,7 +61,7 @@ function calculator(){
                 //operations
                 operatorClicked = false;
                 integer = answer;
-                scndInteger = 0;
+                scndInteger = '';
             }
             else{
                 //show the operator clicked and turn it to true so it can be added to the second integer
@@ -70,6 +73,23 @@ function calculator(){
     })
 }
 
+//when user presses AC, it will clear all, return everything back as it was
+clearAll.addEventListener("click", function(){
+    integer = '';
+    scndInteger = '';
+    currentDisplay = '';
+    operatorClicked = false;
+    display.textContent = 0;
+})
+//when user presses C, it will clear the number currently clicked on
+clear.addEventListener("click", function(){
+    if (operatorClicked == false){
+        integer += number.textContent;
+        display.textContent = integer;
+        integer = Number(integer); //change to integer for later functions
+    }
+})
+
 //functions for the calculation
 function calculate(a, operator, b){
     switch (operator){
@@ -79,7 +99,7 @@ function calculate(a, operator, b){
             return subtract(a, b);
         case '÷':
             return divide(a, b);
-        case '*':
+        case 'x':
             return multiply(a, b);
     }    
 }
